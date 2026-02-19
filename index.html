@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StayNest - Premium Hostel Booking</title>
+    <meta name="description" content="Book your perfect hostel room with meal plans. Affordable, comfortable stays with delicious food options." />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <!-- ========== NAVBAR ========== -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo" onclick="showPage('home')">
+                <i class="fas fa-building"></i> Stay<span>Nest</span>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="#" onclick="showPage('home')" class="nav-link active" data-page="home">Home</a>
+                <a href="#" onclick="showPage('rooms')" class="nav-link" data-page="rooms">Rooms</a>
+                <a href="#" onclick="showPage('food')" class="nav-link" data-page="food">Food Plans</a>
+                <a href="#" onclick="showPage('mybookings')" class="nav-link" data-page="mybookings">My Bookings</a>
+            </div>
+            <div class="nav-actions">
+                <div id="userGreeting" class="user-greeting" style="display:none;">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="userName"></span>
+                    <button class="btn btn-outline btn-sm" onclick="logout()">Logout</button>
+                </div>
+                <button id="loginBtn" class="btn btn-primary btn-sm" onclick="showPage('login')">Login</button>
+                <a href="admin.html" class="btn btn-outline btn-sm admin-link">
+                    <i class="fas fa-shield-alt"></i> Admin
+                </a>
+                <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== HOME PAGE ========== -->
+    <section class="page active" id="page-home">
+        <!-- Hero -->
+        <div class="hero">
+            <div class="hero-bg"></div>
+            <div class="hero-content">
+                <div class="hero-badge">🏠 Premium Hostel Living</div>
+                <h1>Find Your Perfect<br /><span class="gradient-text">Hostel Room</span></h1>
+                <p class="hero-subtitle">Comfortable rooms with delicious meal plans at affordable prices. Your home away from home awaits.</p>
+                <div class="hero-actions">
+                    <button class="btn btn-primary btn-lg" onclick="showPage('rooms')">
+                        <i class="fas fa-search"></i> Browse Rooms
+                    </button>
+                    <button class="btn btn-glass btn-lg" onclick="showPage('food')">
+                        <i class="fas fa-utensils"></i> View Food Plans
+                    </button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="statRooms">50+</span>
+                        <span class="stat-label">Rooms</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">4.8★</span>
+                        <span class="stat-label">Rating</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">Happy Guests</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">3</span>
+                        <span class="stat-label">Meal Plans</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features -->
+        <div class="section">
+            <div class="container">
+                <h2 class="section-title">Why Choose <span class="gradient-text">StayNest</span></h2>
+                <p class="section-subtitle">We offer everything you need for a comfortable stay</p>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-bed"></i></div>
+                        <h3>Comfortable Rooms</h3>
+                        <p>Single, double, and shared rooms designed for comfort and privacy.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-utensils"></i></div>
+                        <h3>Meal Plans</h3>
+                        <p>Choose from Basic, Standard, or Premium meal plans with fresh food daily.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-wifi"></i></div>
+                        <h3>Free Wi-Fi</h3>
+                        <p>High-speed internet access throughout the hostel.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                        <h3>24/7 Security</h3>
+                        <p>Round-the-clock security with CCTV and biometric access.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-broom"></i></div>
+                        <h3>Daily Housekeeping</h3>
+                        <p>Clean rooms and fresh linens every day.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-dumbbell"></i></div>
+                        <h3>Gym & Recreation</h3>
+                        <p>Stay fit with our gym and recreation room facilities.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== ROOMS PAGE ========== -->
+    <section class="page" id="page-rooms">
+        <div class="page-header">
+            <h1>Our <span class="gradient-text">Rooms</span></h1>
+            <p>Choose the perfect room that fits your needs and budget</p>
+        </div>
+        <div class="container">
+            <!-- Filters -->
+            <div class="filter-bar">
+                <button class="filter-btn active" onclick="filterRooms('all', this)">All Rooms</button>
+                <button class="filter-btn" onclick="filterRooms('single', this)">Single</button>
+                <button class="filter-btn" onclick="filterRooms('double', this)">Double</button>
+                <button class="filter-btn" onclick="filterRooms('shared', this)">Shared</button>
+            </div>
+            <div class="rooms-grid" id="roomsGrid">
+                <!-- Dynamically filled -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOD PLANS PAGE ========== -->
+    <section class="page" id="page-food">
+        <div class="page-header">
+            <h1>Food <span class="gradient-text">Plans</span></h1>
+            <p>Delicious and nutritious meal plans tailored for you</p>
+        </div>
+        <div class="container">
+            <div class="food-grid" id="foodGrid">
+                <!-- Dynamically filled -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== BOOKING PAGE ========== -->
+    <section class="page" id="page-booking">
+        <div class="page-header">
+            <h1>Book <span class="gradient-text">Your Stay</span></h1>
+            <p>Complete your reservation in just a few steps</p>
+        </div>
+        <div class="container">
+            <div class="booking-layout">
+                <!-- Booking Form -->
+                <div class="booking-form-card">
+                    <h3><i class="fas fa-calendar-check"></i> Booking Details</h3>
+                    <form id="bookingForm" onsubmit="submitBooking(event)">
+                        <div class="form-group">
+                            <label><i class="fas fa-door-open"></i> Selected Room</label>
+                            <input type="text" id="bookRoom" readonly class="form-input" />
+                            <input type="hidden" id="bookRoomId" />
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fas fa-calendar"></i> Check-in Date</label>
+                                <input type="date" id="bookCheckin" required class="form-input" />
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-calendar"></i> Check-out Date</label>
+                                <input type="date" id="bookCheckout" required class="form-input" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-utensils"></i> Food Plan</label>
+                            <select id="bookFoodPlan" class="form-input" onchange="updateTotal()">
+                                <option value="">No Food Plan</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-comment"></i> Special Requests</label>
+                            <textarea id="bookNotes" class="form-input" rows="3" placeholder="Any special requirements..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">
+                            <i class="fas fa-check-circle"></i> Confirm Booking
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Price Summary -->
+                <div class="price-summary-card">
+                    <h3><i class="fas fa-receipt"></i> Price Summary</h3>
+                    <div class="summary-items">
+                        <div class="summary-row">
+                            <span>Room Charges</span>
+                            <span id="summaryRoom">₹0</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Food Plan</span>
+                            <span id="summaryFood">₹0</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Duration</span>
+                            <span id="summaryDuration">0 days</span>
+                        </div>
+                        <div class="summary-divider"></div>
+                        <div class="summary-row total">
+                            <span>Total Amount</span>
+                            <span id="summaryTotal">₹0</span>
+                        </div>
+                    </div>
+                    <div class="summary-note">
+                        <i class="fas fa-info-circle"></i>
+                        Prices are per day. Food plan is charged daily.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== MY BOOKINGS PAGE ========== -->
+    <section class="page" id="page-mybookings">
+        <div class="page-header">
+            <h1>My <span class="gradient-text">Bookings</span></h1>
+            <p>Track and manage your reservations</p>
+        </div>
+        <div class="container">
+            <div id="myBookingsList" class="bookings-list">
+                <!-- Dynamically filled -->
+            </div>
+            <div id="noBookings" class="empty-state" style="display:none;">
+                <i class="fas fa-calendar-times"></i>
+                <h3>No Bookings Yet</h3>
+                <p>You haven't made any bookings. Start exploring our rooms!</p>
+                <button class="btn btn-primary" onclick="showPage('rooms')">Browse Rooms</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== LOGIN/REGISTER PAGE ========== -->
+    <section class="page" id="page-login">
+        <div class="auth-container">
+            <!-- Login Form -->
+            <div class="auth-card" id="loginCard">
+                <div class="auth-header">
+                    <div class="auth-icon"><i class="fas fa-user-circle"></i></div>
+                    <h2>Welcome Back</h2>
+                    <p>Login to manage your bookings</p>
+                </div>
+                <form onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label><i class="fas fa-envelope"></i> Email</label>
+                        <input type="email" id="loginEmail" required class="form-input" placeholder="your@email.com" />
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-lock"></i> Password</label>
+                        <input type="password" id="loginPassword" required class="form-input" placeholder="Enter password" />
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                </form>
+                <p class="auth-switch">Don't have an account? <a href="#" onclick="toggleAuth()">Register here</a></p>
+            </div>
+
+            <!-- Register Form -->
+            <div class="auth-card" id="registerCard" style="display:none;">
+                <div class="auth-header">
+                    <div class="auth-icon"><i class="fas fa-user-plus"></i></div>
+                    <h2>Create Account</h2>
+                    <p>Join StayNest today</p>
+                </div>
+                <form onsubmit="handleRegister(event)">
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> Full Name</label>
+                        <input type="text" id="regName" required class="form-input" placeholder="John Doe" />
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-envelope"></i> Email</label>
+                        <input type="email" id="regEmail" required class="form-input" placeholder="your@email.com" />
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-phone"></i> Phone</label>
+                        <input type="tel" id="regPhone" required class="form-input" placeholder="+91 9876543210" />
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-lock"></i> Password</label>
+                        <input type="password" id="regPassword" required class="form-input" placeholder="Min 6 characters" />
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">
+                        <i class="fas fa-user-plus"></i> Register
+                    </button>
+                </form>
+                <p class="auth-switch">Already have an account? <a href="#" onclick="toggleAuth()">Login here</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CONFIRMATION MODAL ========== -->
+    <div class="modal-overlay" id="confirmModal" style="display:none;">
+        <div class="modal-card">
+            <div class="modal-icon success">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Booking Confirmed!</h2>
+            <p>Your reservation has been submitted successfully.</p>
+            <div id="confirmDetails" class="confirm-details"></div>
+            <button class="btn btn-primary btn-lg" onclick="closeModal(); showPage('mybookings');">
+                <i class="fas fa-list"></i> View My Bookings
+            </button>
+        </div>
+    </div>
+
+    <!-- ========== TOAST ========== -->
+    <div id="toast" class="toast"></div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3><i class="fas fa-building"></i> Stay<span>Nest</span></h3>
+                    <p>Your home away from home. Premium hostel living with delicious meal plans.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <a href="#" onclick="showPage('home')">Home</a>
+                    <a href="#" onclick="showPage('rooms')">Rooms</a>
+                    <a href="#" onclick="showPage('food')">Food Plans</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Hostel Street, City</p>
+                    <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                    <p><i class="fas fa-envelope"></i> info@staynest.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 StayNest. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

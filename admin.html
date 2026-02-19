@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StayNest Admin - Dashboard</title>
+    <meta name="description" content="Admin panel for StayNest hostel booking management system." />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="admin.css" />
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="logo">
+                <i class="fas fa-building"></i> Stay<span>Nest</span>
+            </a>
+            <span class="logo-sub">Admin Panel</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item active" data-section="dashboard" onclick="showSection('dashboard', this)">
+                <i class="fas fa-chart-pie"></i> Dashboard
+            </a>
+            <a href="#" class="nav-item" data-section="rooms" onclick="showSection('rooms', this)">
+                <i class="fas fa-bed"></i> Rooms
+            </a>
+            <a href="#" class="nav-item" data-section="bookings" onclick="showSection('bookings', this)">
+                <i class="fas fa-calendar-check"></i> Bookings
+            </a>
+            <a href="#" class="nav-item" data-section="food" onclick="showSection('food', this)">
+                <i class="fas fa-utensils"></i> Food Plans
+            </a>
+            <a href="#" class="nav-item" data-section="customers" onclick="showSection('customers', this)">
+                <i class="fas fa-users"></i> Customers
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="index.html" class="btn btn-outline btn-sm btn-block">
+                <i class="fas fa-globe"></i> View Website
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Bar -->
+        <header class="topbar">
+            <button class="hamburger" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h2 id="pageTitle">Dashboard</h2>
+            <div class="topbar-actions">
+                <span class="admin-badge"><i class="fas fa-shield-alt"></i> Admin</span>
+            </div>
+        </header>
+
+        <!-- ===== DASHBOARD ===== -->
+        <section class="content-section active" id="sec-dashboard">
+            <div class="stats-grid" id="statsGrid"></div>
+            <div class="dashboard-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-clock"></i> Recent Bookings</h3>
+                    </div>
+                    <div class="card-body" id="recentBookings"></div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-pie-chart"></i> Room Occupancy</h3>
+                    </div>
+                    <div class="card-body" id="occupancyChart"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== ROOMS MANAGEMENT ===== -->
+        <section class="content-section" id="sec-rooms">
+            <div class="section-header">
+                <h3>Room Management</h3>
+                <button class="btn btn-primary" onclick="openRoomModal()">
+                    <i class="fas fa-plus"></i> Add Room
+                </button>
+            </div>
+            <div class="table-container">
+                <table class="data-table" id="roomsTable">
+                    <thead>
+                        <tr>
+                            <th>Room Name</th>
+                            <th>Type</th>
+                            <th>Price/Day</th>
+                            <th>Status</th>
+                            <th>Amenities</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="roomsBody"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ===== BOOKINGS MANAGEMENT ===== -->
+        <section class="content-section" id="sec-bookings">
+            <div class="section-header">
+                <h3>Booking Management</h3>
+                <div class="filter-group">
+                    <button class="filter-pill active" onclick="filterBookings('all', this)">All</button>
+                    <button class="filter-pill" onclick="filterBookings('pending', this)">Pending</button>
+                    <button class="filter-pill" onclick="filterBookings('approved', this)">Approved</button>
+                    <button class="filter-pill" onclick="filterBookings('rejected', this)">Rejected</button>
+                </div>
+            </div>
+            <div class="table-container">
+                <table class="data-table" id="bookingsTable">
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Guest</th>
+                            <th>Room</th>
+                            <th>Check-in</th>
+                            <th>Check-out</th>
+                            <th>Food Plan</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookingsBody"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ===== FOOD PLANS MANAGEMENT ===== -->
+        <section class="content-section" id="sec-food">
+            <div class="section-header">
+                <h3>Food Plan Management</h3>
+                <button class="btn btn-primary" onclick="openFoodModal()">
+                    <i class="fas fa-plus"></i> Add Plan
+                </button>
+            </div>
+            <div class="food-admin-grid" id="foodAdminGrid"></div>
+        </section>
+
+        <!-- ===== CUSTOMERS ===== -->
+        <section class="content-section" id="sec-customers">
+            <div class="section-header">
+                <h3>Customer Management</h3>
+            </div>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Joined</th>
+                            <th>Bookings</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customersBody"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== ROOM MODAL ===== -->
+    <div class="modal-overlay" id="roomModal" style="display:none;">
+        <div class="modal-card modal-form">
+            <div class="modal-header">
+                <h3 id="roomModalTitle"><i class="fas fa-bed"></i> Add Room</h3>
+                <button class="modal-close" onclick="closeRoomModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="roomForm" onsubmit="saveRoom(event)">
+                <input type="hidden" id="editRoomId" />
+                <div class="form-group">
+                    <label>Room Name</label>
+                    <input type="text" id="roomName" required class="form-input" placeholder="e.g. Sunrise Single" />
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Type</label>
+                        <select id="roomType" required class="form-input">
+                            <option value="single">Single</option>
+                            <option value="double">Double</option>
+                            <option value="shared">Shared</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Price (₹/day)</label>
+                        <input type="number" id="roomPrice" required class="form-input" min="1" placeholder="500" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="roomDesc" class="form-input" rows="2" placeholder="Room description..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Amenities (comma separated)</label>
+                    <input type="text" id="roomAmenities" class="form-input" placeholder="Wi-Fi, AC, Study Desk" />
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="roomStatus" class="form-input">
+                        <option value="available">Available</option>
+                        <option value="occupied">Occupied</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-outline" onclick="closeRoomModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Room</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== FOOD MODAL ===== -->
+    <div class="modal-overlay" id="foodModal" style="display:none;">
+        <div class="modal-card modal-form">
+            <div class="modal-header">
+                <h3 id="foodModalTitle"><i class="fas fa-utensils"></i> Add Food Plan</h3>
+                <button class="modal-close" onclick="closeFoodModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="foodForm" onsubmit="saveFoodPlan(event)">
+                <input type="hidden" id="editFoodId" />
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Plan Name</label>
+                        <input type="text" id="foodName" required class="form-input" placeholder="e.g. Standard Plan" />
+                    </div>
+                    <div class="form-group">
+                        <label>Price (₹/day)</label>
+                        <input type="number" id="foodPrice" required class="form-input" min="1" placeholder="200" />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Icon (emoji)</label>
+                        <input type="text" id="foodIcon" class="form-input" placeholder="🍛" />
+                    </div>
+                    <div class="form-group">
+                        <label>Popular</label>
+                        <select id="foodPopular" class="form-input">
+                            <option value="false">No</option>
+                            <option value="true">Yes</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Features (comma separated)</label>
+                    <textarea id="foodFeatures" class="form-input" rows="3"
+                        placeholder="Breakfast + Lunch, Evening Snack, ..."></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-outline" onclick="closeFoodModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Plan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast"></div>
+
+    <script src="admin.js"></script>
+</body>
+
+</html>
